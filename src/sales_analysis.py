@@ -1,38 +1,94 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Load Dataset
-df = pd.read_csv("data/sales.csv")
+class SalesAnalyzer:
 
-print("\n========== SALES ANALYSIS ==========\n")
+    def __init__(
+        self,
+        dataframe
+    ):
 
-# Total Sales
-total_sales = df["Sales"].sum()
-print("Total Sales:", total_sales)
+        self.df = dataframe
 
-# Total Profit
-total_profit = df["Profit"].sum()
-print("Total Profit:", total_profit)
+    def total_revenue(self):
 
-# Region-wise Sales
-print("\nRegion Wise Sales")
-print(df.groupby("Region")["Sales"].sum())
+        return round(
+            self.df[
+                "Revenue"
+            ].sum(),
+            2
+        )
 
-# Category-wise Sales
-print("\nCategory Wise Sales")
-print(df.groupby("Category")["Sales"].sum())
+    def total_orders(self):
 
-# Top Products
-print("\nTop Products")
-print(df.groupby("Product")["Sales"].sum().sort_values(ascending=False))
+        return len(self.df)
 
-# Sales by Category Chart
-df.groupby("Category")["Sales"].sum().plot(
-    kind="bar",
-    title="Sales by Category"
-)
+    def average_order_value(self):
 
-plt.xlabel("Category")
-plt.ylabel("Sales")
-plt.tight_layout()
-plt.show()
+        return round(
+            self.df[
+                "Revenue"
+            ].mean(),
+            2
+        )
+
+    def top_selling_product(self):
+
+        return (
+            self.df.groupby(
+                "Product"
+            )["Quantity"]
+            .sum()
+            .idxmax()
+        )
+
+    def category_sales(self):
+
+        return (
+            self.df.groupby(
+                "Category"
+            )["Revenue"]
+            .sum()
+            .sort_values(
+                ascending=False
+            )
+        )
+
+    def monthly_sales(self):
+
+        return (
+            self.df.groupby(
+                "Month"
+            )["Revenue"]
+            .sum()
+        )
+
+    def generate_summary(self):
+
+        return {
+
+            "Total Revenue":
+            self.total_revenue(),
+
+            "Total Orders":
+            self.total_orders(),
+
+            "Average Order Value":
+            self.average_order_value(),
+
+            "Top Selling Product":
+            self.top_selling_product()
+        }
+
+if __name__ == "__main__":
+
+    df = pd.read_csv(
+        "data/processed_sales_data.csv"
+    )
+
+    analyzer = SalesAnalyzer(
+        df
+    )
+
+    print(
+        analyzer.generate_summary()
+    )
