@@ -1,0 +1,22 @@
+Sales Summary Report
+========================================
+
+Total Revenue: 8600
+
+Total Orders: 12
+
+Average Order Value: 716.67
+
+Top Selling Product: Pen
+
+Key Insights
+
+1. Electronics generated the highest revenue.
+2. Furniture remained the second highest category.
+3. Pen recorded the highest quantity sold.
+4. March generated strong sales performance.
+5. Revenue trend remained stable across months.
+
+Conclusion
+
+The business demonstrated consistent sales growth across multiple categories. Electronics contributed significantly to overall revenue while stationery products showed strong volume-based performance.
